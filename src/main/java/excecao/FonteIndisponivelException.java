@@ -6,4 +6,7 @@ public class FonteIndisponivelException extends Exception {
         super(mensagem);
     }
 
+    public FonteIndisponivelException(String mensagem, Throwable causa) {
+        super(mensagem, causa);
+    }
 }

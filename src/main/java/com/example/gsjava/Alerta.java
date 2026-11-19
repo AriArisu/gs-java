@@ -1,25 +1,48 @@
 package com.example.gsjava;
 
 import com.example.gsjava.NivelAlerta;
+import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 
-/** Alerta emitido a partir de uma previsão que ultrapassou um limiar. */
+@Entity
+@Table(name = "alerta")
 public class Alerta {
 
-    private final Long id;
-    private final String sensorId;
-    private final String tipo;
-    private final NivelAlerta nivel;
-    private final double valorPrevisto;
-    private final double limite;
-    private final String estrategia;
-    private final String mensagem;
-    private final LocalDateTime dataHora;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    public Alerta(Long id, String sensorId, String tipo, NivelAlerta nivel, double valorPrevisto,
-                  double limite, String estrategia, String mensagem, LocalDateTime dataHora) {
-        this.id = id;
+    @Column(name = "sensor_id", nullable = false, length = 30)
+    private String sensorId;
+
+    @Column(name = "tipo", nullable = false, length = 30)
+    private String tipo;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "nivel", nullable = false, length = 10)
+    private NivelAlerta nivel;
+
+    @Column(name = "valor_previsto", nullable = false)
+    private double valorPrevisto;
+
+    @Column(name = "limite", nullable = false)
+    private double limite;
+
+    @Column(name = "estrategia", nullable = false, length = 60)
+    private String estrategia;
+
+    @Column(name = "mensagem", nullable = false, length = 800)
+    private String mensagem;
+
+    @Column(name = "data_hora", nullable = false)
+    private LocalDateTime dataHora;
+
+    protected Alerta() {
+    }
+
+    public Alerta(String sensorId, String tipo, NivelAlerta nivel, double valorPrevisto,
+                  double limite, String estrategia, String mensagem) {
         this.sensorId = sensorId;
         this.tipo = tipo;
         this.nivel = nivel;
@@ -27,7 +50,7 @@ public class Alerta {
         this.limite = limite;
         this.estrategia = estrategia;
         this.mensagem = mensagem;
-        this.dataHora = dataHora;
+        this.dataHora = LocalDateTime.now();
     }
 
     public Long getId() { return id; }

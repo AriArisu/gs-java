@@ -1,20 +1,36 @@
 package com.example.gsjava;
 
 import excecao.DadosInvalidosException;
+import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 
-/** Uma leitura de sensor num instante. Só existe se for válida. */
+@Entity
+@Table(name = "medicao")
 public class Medicao {
 
-    private final Long id;
-    private final String sensorId;
-    private final String tipo;
-    private final double valor;
-    private final String unidade;
-    private final LocalDateTime dataHora;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    /** Construtor usado ao ler um sensor: valida os dados. */
+    @Column(name = "sensor_id", nullable = false, length = 30)
+    private String sensorId;
+
+    @Column(name = "tipo", nullable = false, length = 30)
+    private String tipo;
+
+    @Column(name = "valor", nullable = false)
+    private double valor;
+
+    @Column(name = "unidade", nullable = false, length = 10)
+    private String unidade;
+
+    @Column(name = "data_hora", nullable = false)
+    private LocalDateTime dataHora;
+
+    protected Medicao() {
+    }
+
     public Medicao(String sensorId, String tipo, double valor, String unidade) throws DadosInvalidosException {
         if (sensorId == null || sensorId.isBlank()) {
             throw new DadosInvalidosException("A medição precisa informar o sensor de origem.");
@@ -25,22 +41,11 @@ public class Medicao {
         if (valor < 0) {
             throw new DadosInvalidosException("Medição de " + tipo + " inválida: valor negativo (" + valor + ").");
         }
-        this.id = null;
         this.sensorId = sensorId;
         this.tipo = tipo;
         this.valor = valor;
         this.unidade = unidade;
         this.dataHora = LocalDateTime.now();
-    }
-
-    /** Construtor usado pelo DAO ao reconstruir uma medição que já estava no banco. */
-    public Medicao(Long id, String sensorId, String tipo, double valor, String unidade, LocalDateTime dataHora) {
-        this.id = id;
-        this.sensorId = sensorId;
-        this.tipo = tipo;
-        this.valor = valor;
-        this.unidade = unidade;
-        this.dataHora = dataHora;
     }
 
     public Long getId() { return id; }

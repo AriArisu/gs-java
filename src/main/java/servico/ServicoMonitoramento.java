@@ -1,6 +1,7 @@
 package servico;
 
-import model.DadosTerritorio;
+
+import com.example.gsjava.DadosTerritorio;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
