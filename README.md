@@ -85,12 +85,3 @@ src/test/java/br/com/territory/   MedicaoTest, PrevisaoTest, ServicoMonitorament
 - `PrevisaoTest`: o cálculo das duas estratégias e o histórico curto (se a conta errar, o teste fica vermelho).
 - `ServicoMonitoramentoTest`: o **Mockito** simula `MedicaoRepository` e `AlertaRepository` e testa a lógica de leitura, previsão e alerta sem banco.
 
-
-## Uso de IA
-
-> **A equipe deve revisar e completar esta seção com o que realmente aconteceu.**
-
-- Ferramenta usada: Claude (Anthropic).
-- Onde foi usada: _[descrever: ex. estrutura das camadas, rascunho de classes, testes, README]_.
-- Como revisamos: _[descrever: quem leu cada parte, o que foi alterado, o que foi testado à mão]_.
-- Todos os integrantes devem conseguir explicar qualquer trecho do código na conversa de correção.
